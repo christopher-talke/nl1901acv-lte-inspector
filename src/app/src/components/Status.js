@@ -1,58 +1,20 @@
 import React from 'react';
-import Gauge from './Gauge';
+
+import Loading from './Loading';
+import Datatable from './Datatable';
+
+import useModemReadings from '../hooks/useModemReadings';
 
 const Status = () => {
+  const [loading, modemReadings, getModemReadings] = useModemReadings('modem-reading', 'modemReadings');
+
+  console.log(loading, modemReadings);
+
+  if (loading) return <Loading />;
+
   return (
     <div id="status">
-      <div id="modem-readings">
-        <h1>Modem</h1>
-        <div className="readings">
-          <div className="reading">
-            <Gauge value={90} />
-          </div>
-          <h3>RSSI</h3>
-        </div>
-        <div className="readings">
-          <div className="reading">
-            <Gauge value={90} />
-          </div>
-          <h3>RSRP</h3>
-        </div>
-        <div className="readings">
-          <div className="reading">
-            <Gauge value={90} />
-          </div>
-          <h3>SINR</h3>
-        </div>
-        <div className="readings">
-          <div className="reading">
-            <Gauge value={90} />
-          </div>
-          <h3>RSRQ</h3>
-        </div>
-      </div>
-
-      <div id="service-cell-readings">
-        <h1>Service Cell</h1>
-        <div className="readings">
-          <div className="reading">
-            <Gauge value={90} />
-          </div>
-          <h3>RSSI</h3>
-        </div>
-        <div className="readings">
-          <div className="reading">
-            <Gauge value={90} />
-          </div>
-          <h3>RSRP</h3>
-        </div>
-        <div className="readings">
-          <div className="reading">
-            <Gauge value={90} />
-          </div>
-          <h3>RSRQ</h3>
-        </div>
-      </div>
+      <Datatable data={modemReadings} />
     </div>
   );
 };
