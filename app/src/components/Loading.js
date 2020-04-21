@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loading = () => {
   return (
-    <svg className="loading" width="100px" height="100px" viewBox="0 0 25 25" preserveAspectRatio="xMidYMid">
+    <svg className="loading" width="50px" height="50px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
       <g transform="rotate(0 50 50)">
         <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#f1f1f1">
           <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.9166666666666666s" repeatCount="indefinite"></animate>

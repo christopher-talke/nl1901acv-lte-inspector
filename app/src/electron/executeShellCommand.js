@@ -2,13 +2,13 @@ const SSH2Shell = require('ssh2shell');
 const mappings = require('../quectel-mappings.json');
 const util = require('util');
 
-const executeShellCommand = (command, callback) => {
+const executeShellCommand = (command, config, callback) => {
   let SSH = new SSH2Shell({
     server: {
-      host: '192.168.20.1',
+      host: config.host,
       port: 22,
-      userName: 'admin',
-      password: 'admin',
+      userName: config.username,
+      password: config.password,
       algorithms: {
         hmac: ['hmac-sha1'],
         cipher: ['3des-cbc'],
@@ -17,6 +17,10 @@ const executeShellCommand = (command, callback) => {
     },
     dataIdleTimeOut: 500,
     commands: ['sh', mappings.commands[command]],
+    onError: function (err) {
+      console.error(err);
+      return err;
+    },
   });
 
   SSH.connect((data) => {

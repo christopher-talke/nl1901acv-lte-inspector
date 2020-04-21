@@ -1,19 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 const { ipcRenderer } = window.require('electron');
 
 const useModemReadings = () => {
   const [modemReadings, setModemReadings] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getModemReadings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setModemReadings]);
-
-  const getModemReadings = async () => {
+  const getModemReadings = async (config) => {
     setLoading(true);
-    ipcRenderer.send(`modem-reading-request`);
+    ipcRenderer.send(`modem-reading-request`, config);
     ipcRenderer.on(`modem-reading-reply`, (_, arg) => {
+      console.log(arg);
       setModemReadings(arg);
       setLoading(false);
     });
